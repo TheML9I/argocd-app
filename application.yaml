@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: skapp-argocd-application
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/TheML9I/argocd-app.git
+    targetRevision: HEAD
+    path: dev
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: arcgo-app
+  
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true

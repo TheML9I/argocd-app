@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-app
+spec:
+  selector:
+    matchLabels:
+      app: arcgo-app
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: arcgo-app
+    spec:
+      containers:
+      - name: arcgo-app
+        image: hashicorp/http-echo:0.2.3
+        args: ["-text", "hello world@@@@@", "-listen", ":8081"]
+        ports:
+        - containerPort: 8081
